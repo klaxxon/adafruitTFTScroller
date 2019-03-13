@@ -35,12 +35,13 @@ Adafruit_HX8357 tft = Adafruit_HX8357(TFT_CS, TFT_DC, 23, 18, -1, MISO);
 
 
 Log2TFT logit(&tft);
+// Redefine serial to display
 #define Serial logit
 
 
 void setup() {
-  Serial.begin(115200);
-  logit.config(0, 2);
+  Serial.begin(115200);  // Does nothing with define above
+  logit.config(0, 2);  // Portait mode, double text size
   //tft.begin();
   Serial.println("HX8357D Test!"); 
 
@@ -62,6 +63,8 @@ void setup() {
   Serial.println(F("Done!"));
 }
 
+
+// Simple byte to RGB short
 unsigned short doCol(unsigned short in) {
   unsigned short col = 0;
   in &= 0xff;
@@ -93,7 +96,7 @@ void loop(void) {
   unsigned short col = doCol(cnt);
   sprintf(tmp, "Current %d = %lu\n", cnt++, millis());
   tft.setTextColor(col);
-  logit.setTextSize(1+(cnt&1));
+  logit.setTextSize(1+(cnt&1)); // Alternate between two different font sizes
   logit.print(tmp);
 }
 
