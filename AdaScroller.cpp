@@ -12,7 +12,7 @@ void Log2TFT::begin(int){}
 void Log2TFT::setTextSize(int x) {
   tft_->setTextSize(x);
   charsize_ = x * 8;
-  bsize_ = 1+dwidth_/charsize_;
+  bsize_ = 1+dwidth_/(x*6);
 }
 
 void Log2TFT::setLinePadSize(int x) {
@@ -59,7 +59,7 @@ void Log2TFT::scroll() {
   tft_->endWrite();
   if (!scrollPos_) scrollPos_ = dheight_;
   scrollPos_--;
-  tft_->drawLine(0, dheight_-1-scrollPos_, dwidth_, dheight_-1-scrollPos_, 0x00);
+  tft_->drawLine(0, dheight_-1-scrollPos_, dwidth_, dheight_-1-scrollPos_, bgroundColor_);
   return;
 }
 
@@ -70,6 +70,7 @@ size_t Log2TFT::write(uint8_t x) {
     int y = dheight_-charsize_-scrollPos_;
     if (y < 0) {  // In case we are on a non-8 divisible boundary
       tft_->setCursor(0, y);
+      tft_->setTextColor(textColor_);
       tft_->print(buf_);
       y += dheight_;
     }
@@ -84,3 +85,7 @@ size_t Log2TFT::write(uint8_t x) {
   }
 }
 
+Log2TFT::RECT Log2TFT::getCurrentLineBounds() {
+  RECT b = {0, dheight_-charsize_-scrollPos_, dwidth_, charsize_};
+  return b;
+}
