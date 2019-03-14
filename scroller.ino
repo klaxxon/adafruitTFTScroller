@@ -42,6 +42,7 @@ Log2TFT logit(&tft);
 void setup() {
   Serial.begin(115200);  // Does nothing with define above
   logit.config(0, 2);  // Portait mode, double text size
+  logit.setTextColor(HX8357_WHITE);
   //tft.begin();
   Serial.println("HX8357D Test!"); 
 
@@ -92,12 +93,9 @@ unsigned short doCol(unsigned short in) {
 
 void loop(void) {
   static unsigned long cnt = 0;
-  char tmp[64];
-  unsigned short col = doCol(cnt);
-  sprintf(tmp, "Current %d = %lu\n", cnt++, millis());
-  tft.setTextColor(col);
-  logit.setTextSize(1+(cnt&1)); // Alternate between two different font sizes
-  logit.print(tmp);
+  logit.setBackgroundColor(doCol(cnt*8));
+  logit.setTextSize(1+(cnt%3));
+  logit.print("0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF\n");
 }
 
 
