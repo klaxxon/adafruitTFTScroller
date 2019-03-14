@@ -1,6 +1,6 @@
 # adafruitTFTScroller
 
-[![Watch the video](https://github.com/klaxxon/adafruitTFTScroller/blob/master/scroller.jpg?raw=true)](https://www.youtube.com/watch?v=AX4G6JVqIOs&feature=youtu.be)
+[![Watch the video](https://github.com/klaxxon/adafruitTFTScroller/blob/master/scroller.jpg?raw=true)](https://www.youtube.com/watch?v=Tj7TkK-RHag)
 
 Sample of scrolling the HX8357 through hardware in portrait mode.  I wanted a way to dump Serial to this little screen, which required some sort of scrolling.  I could not find anything except the hardware manual for the chip to perform scrolling so I wrote this little class to implement a smooth scroll.  This class uses the AdaFruit HX8357 tft driver, but could probably be used with other drivers using similar hardware.<br/>
 <br/>
@@ -16,6 +16,10 @@ https://www.adafruit.com/?q=hxd8357d<br/>
     Calls the underlying TFT methods for rotation and text size.<br/>
 <code>  setTextSize(int textsize);</code><br/>
     Sets text size. Can be used between calls to change text size between output calls.<br/>
+<code>  SetTextColor(unsigned short)</code><br/>
+    Set text color.<br/>
+<code>  SetBackgroundColor(unsigned short)</code><br/>
+    Set text background color.<br/>
 <code>  setLinePadSize(int y);</code><br/>
     Sets number of pixels between each line of text. Defaults to two.<br/>
 <br/>
